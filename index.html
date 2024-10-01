@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>To Do app</title>
+
+    <script src="https://cdn.tailwindcss.com"></script>
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css"
+        integrity="sha512-Fo3rlrZj/k7ujTnHg4CGR2D7kSs0v4LLanw2qksYuRlEzO+tcaEPQogQ0KaoGN26/zrn20ImR1DfuLWnOo7aBA=="
+        crossorigin="anonymous" referrerpolicy="no-referrer" />
+</head>
+
+<body class="bg-sky-300 flex justify-center items-center h-screen">
+    <div
+        class="bg-white bg-opacity-50 backdrop-filter backdrop-blur-lg rounded-lg shadow-lg p-8 max-w-md w-full text-gray-800">
+        <h1 class="text-4xl font-bold text-center mb-8">To-Do List</h1>
+        <div id="app" class="max-w-md mx-auto">
+            <div class="flex items-center mb-4">
+                <input type="text" class="flex-1 border rounded-l py-2 px-3 focus:outline-none text-gray-800"
+                    placeholder="Add a new task..." v-model="newTask" @keyup.enter="addTask">
+                <button class="bg-blue-400 hover:bg-blue-500 text-white px-4 py-2 rounded-r focus:outline-none"
+                    @click="addTask">
+                    <i class="fas fa-plus"></i>
+                </button>
+            </div>
+
+            <ul>
+                <li v-for="(task, index) in tasks" :key="index" class="flex items-center justify-between border-b py-4">
+                    <div class="flex items-center">
+                        <input type="checkbox" class="mr-2 form-checkbox h-5 w-5 text-blue-500"
+                            v-model="task.completed">
+                        <span :class="{'line-through': task.completed}" class="text-gray-900">{{ task.text }}</span>
+                        <span class="text-sm text-gray-600 ml-2">
+                            {{ task.date }}
+                        </span>
+                    </div>
+                    <button @click="removeTask(index)" class="text-red-600 hover:text-red-800 focus:outline-none">
+                        <i class="fas fa-trash-alt"></i>
+                    </button>
+                </li>
+            </ul>
+            <button @click="clearCompletedTasks" class="mt-8 bg-red-400 hover:bg-red-500 text-white px-6 py-3 rounded focus:outline-none">Clear Completed</button>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/vue@2.7.16/dist/vue.js"></script>
+    <script src="app.js"></script>
+</body>
+
+</html>
